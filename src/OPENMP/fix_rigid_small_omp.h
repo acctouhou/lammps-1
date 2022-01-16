@@ -21,16 +21,12 @@ FixStyle(rigid/small/omp,FixRigidSmallOMP);
 #define LMP_FIX_RIGID_SMALL_OMP_H
 
 #include "fix_rigid_small.h"
-#include "force.h"
 
 namespace LAMMPS_NS {
 
 class FixRigidSmallOMP : public FixRigidSmall {
  public:
-  FixRigidSmallOMP(class LAMMPS *lmp, int narg, char **args) : FixRigidSmall(lmp, narg, args)
-  {
-    centroidstressflag = CENTROID_NOTAVAIL;
-  }
+  FixRigidSmallOMP(class LAMMPS *lmp, int narg, char **args) : FixRigidSmall(lmp, narg, args){};
   virtual ~FixRigidSmallOMP(){};
 
   virtual void initial_integrate(int);

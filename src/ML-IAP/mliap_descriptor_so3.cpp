@@ -125,27 +125,28 @@ void MLIAPDescriptorSO3::read_paramfile(char *paramfilename)
 
     // check for keywords with one value per element
 
-    if ((skeywd == "elems") || (skeywd == "radelems") || (skeywd == "welems"))  {
+    if (strcmp(skeywd.c_str(), "elems") == 0 || strcmp(skeywd.c_str(), "radelems") == 0 ||
+        strcmp(skeywd.c_str(), "welems") == 0) {
 
       if (nelementsflag == 0 || nwords != nelements + 1)
         error->all(FLERR, "Incorrect SO3 parameter file");
 
-      if (skeywd == "elems") {
+      if (strcmp(skeywd.c_str(), "elems") == 0) {
         for (int ielem = 0; ielem < nelements; ielem++) {
           elements[ielem] = utils::strdup(skeyval);
           if (ielem < nelements - 1) skeyval = p.next();
         }
 
         elementsflag = 1;
-      } else if (skeywd == "radelems")  {
+      } else if (strcmp(skeywd.c_str(), "radelems") == 0) {
         for (int ielem = 0; ielem < nelements; ielem++) {
-          radelem[ielem] = utils::numeric(FLERR, skeyval, false, lmp);
+          radelem[ielem] = utils::numeric(FLERR, skeyval.c_str(), false, lmp);
           if (ielem < nelements - 1) skeyval = p.next();
         }
         radelemflag = 1;
-      } else if (skeywd == "welems") {
+      } else if (strcmp(skeywd.c_str(), "welems") == 0) {
         for (int ielem = 0; ielem < nelements; ielem++) {
-          wjelem[ielem] = utils::numeric(FLERR, skeyval, false, lmp);
+          wjelem[ielem] = utils::numeric(FLERR, skeyval.c_str(), false, lmp);
           if (ielem < nelements - 1) skeyval = p.next();
         }
         wjelemflag = 1;
@@ -157,23 +158,23 @@ void MLIAPDescriptorSO3::read_paramfile(char *paramfilename)
 
       if (nwords != 2) error->all(FLERR, "Incorrect SO3 parameter file");
 
-      if (skeywd == "nelems") {
-        nelements = utils::inumeric(FLERR, skeyval, false, lmp);
+      if (strcmp(skeywd.c_str(), "nelems") == 0) {
+        nelements = utils::inumeric(FLERR, skeyval.c_str(), false, lmp);
         elements = new char *[nelements];
         memory->create(radelem, nelements, "mliap_so3_descriptor:radelem");
         memory->create(wjelem, nelements, "mliap_so3_descriptor:wjelem");
         nelementsflag = 1;
-      } else if (skeywd == "rcutfac") {
-        rcutfac = utils::numeric(FLERR, skeyval, false, lmp);
+      } else if (strcmp(skeywd.c_str(), "rcutfac") == 0) {
+        rcutfac = utils::numeric(FLERR, skeyval.c_str(), false, lmp);
         rcutfacflag = 1;
-      } else if (skeywd == "nmax") {
-        nmax = utils::inumeric(FLERR, skeyval, false, lmp);
+      } else if (strcmp(skeywd.c_str(), "nmax") == 0) {
+        nmax = utils::inumeric(FLERR, skeyval.c_str(), false, lmp);
         nmaxflag = 1;
-      } else if (skeywd == "lmax") {
-        lmax = utils::inumeric(FLERR, skeyval, false, lmp);
+      } else if (strcmp(skeywd.c_str(), "lmax") == 0) {
+        lmax = utils::inumeric(FLERR, skeyval.c_str(), false, lmp);
         lmaxflag = 1;
-      } else if (skeywd == "alpha") {
-        alpha = utils::numeric(FLERR, skeyval, false, lmp);
+      } else if (strcmp(skeywd.c_str(), "alpha") == 0) {
+        alpha = utils::numeric(FLERR, skeyval.c_str(), false, lmp);
         alphaflag = 1;
       } else
         error->all(FLERR, "Incorrect SO3 parameter file");

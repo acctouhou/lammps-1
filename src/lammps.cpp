@@ -1305,14 +1305,12 @@ void _noopt LAMMPS::help()
 
 /* ----------------------------------------------------------------------
    print style names in columns
-   skip any internal style that starts with an upper-case letter
-   also skip "redundant" KOKKOS styles ending in kk/host or kk/device
+   skip any style that starts with upper-case letter, since internal
 ------------------------------------------------------------------------- */
 
 void print_style(FILE *fp, const char *str, int &pos)
 {
-  if (isupper(str[0]) || utils::strmatch(str,"/kk/host$")
-      || utils::strmatch(str,"/kk/device$")) return;
+  if (isupper(str[0])) return;
 
   int len = strlen(str);
   if (pos+len > 80) {

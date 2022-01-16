@@ -38,12 +38,7 @@ using namespace LAMMPS_NS;
 
 /* ---------------------------------------------------------------------- */
 
-DumpAtomMPIIO::DumpAtomMPIIO(LAMMPS *lmp, int narg, char **arg)
-  : DumpAtom(lmp, narg, arg)
-{
-  if (me == 0)
-    error->warning(FLERR,"MPI-IO output is unmaintained and unreliable. Use with caution.");
-}
+DumpAtomMPIIO::DumpAtomMPIIO(LAMMPS *lmp, int narg, char **arg) : DumpAtom(lmp, narg, arg) {}
 
 /* ---------------------------------------------------------------------- */
 

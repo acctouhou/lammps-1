@@ -189,8 +189,11 @@ static int solve_cyc_tridiag( const double diag[], size_t d_stride,
    spline and splint routines modified from Numerical Recipes
 ------------------------------------------------------------------------- */
 
-static int cyc_spline(double const *xa, double const *ya, int n,
-                      double period, double *y2a, bool warn)
+static int cyc_spline(double const *xa,
+                      double const *ya,
+                      int n,
+                      double period,
+                      double *y2a, bool warn)
 {
 
   double *diag    = new double[n];
@@ -261,8 +264,12 @@ static int cyc_spline(double const *xa, double const *ya, int n,
 //           range should not exceed period (ie xa[n-1] < xa[0] + period).
 //           x must lie in the range:  [(xa[n-1]-period), (xa[0]+period)]
 //           "period" is typically 2*PI.
-static double cyc_splint(double const *xa, double const *ya, double const *y2a,
-                         int n, double period, double x)
+static double cyc_splint(double const *xa,
+                         double const *ya,
+                         double const *y2a,
+                         int n,
+                         double period,
+                         double x)
 {
   int klo = -1;
   int khi = n;
@@ -295,8 +302,11 @@ static double cyc_splint(double const *xa, double const *ya, double const *y2a,
 } // cyc_splint()
 
 
-static double cyc_lin(double const *xa, double const *ya,
-                      int n, double period, double x)
+static double cyc_lin(double const *xa,
+                      double const *ya,
+                      int n,
+                      double period,
+                      double x)
 {
   int klo = -1;
   int khi = n;
@@ -327,14 +337,21 @@ static double cyc_lin(double const *xa, double const *ya,
 
 } // cyc_lin()
 
+
+
+
 // cyc_splintD(): Evaluate the deriviative of a cyclic spline at position x,
 //           with n control points at xa[], ya[], with parameters y2a[].
 //           The xa[] must be monotonically increasing and their
 //           range should not exceed period (ie xa[n-1] < xa[0] + period).
 //           x must lie in the range:  [(xa[n-1]-period), (xa[0]+period)]
 //           "period" is typically 2*PI.
-static double cyc_splintD(double const *xa, double const *ya, double const *y2a,
-                          int n, double period, double x)
+static double cyc_splintD(double const *xa,
+                          double const *ya,
+                          double const *y2a,
+                          int n,
+                          double period,
+                          double x)
 {
   int klo = -1;
   int khi = n; // (not n-1)
@@ -812,9 +829,9 @@ void DihedralTable::coeff(int narg, char **arg)
   // We also want the angles to be sorted in increasing order.
   // This messy code fixes these problems with the user's data:
   {
-    double *phifile_tmp = new double[tb->ninput];  //temporary arrays
-    double *ffile_tmp = new double[tb->ninput];  //used for sorting
-    double *efile_tmp = new double[tb->ninput];
+    double *phifile_tmp = new double [tb->ninput];  //temporary arrays
+    double *ffile_tmp = new double [tb->ninput];  //used for sorting
+    double *efile_tmp = new double [tb->ninput];
 
     // After re-imaging, does the range of angles cross the 0 or 2*PI boundary?
     // If so, find the discontinuity:
@@ -1167,7 +1184,8 @@ void DihedralTable::compute_table(Table *tb)
       if (! tb->f_unspecified)
         tb->f[i] = cyc_splint(tb->phifile,tb->ffile,tb->f2file,tb->ninput,MY_2PI,phi);
     }
-  } else if (tabstyle == LINEAR) {
+  } // if (tabstyle == SPLINE)
+  else if (tabstyle == LINEAR) {
     if (! tb->f_unspecified) {
       for (int i = 0; i < tablength; i++) {
         double phi = i*tb->delta;
@@ -1175,7 +1193,8 @@ void DihedralTable::compute_table(Table *tb)
         tb->e[i]= cyc_lin(tb->phifile,tb->efile,tb->ninput,MY_2PI,phi);
         tb->f[i]= cyc_lin(tb->phifile,tb->ffile,tb->ninput,MY_2PI,phi);
       }
-    } else {
+    }
+    else {
       for (int i = 0; i < tablength; i++) {
         double phi = i*tb->delta;
         tb->phi[i] = phi;
@@ -1250,7 +1269,8 @@ void DihedralTable::param_extract(Table *tb, char *line)
       //else if (word == "EQ") {
       //  tb->theta0 = values.next_double();
       //}
-      else error->one(FLERR,"Invalid keyword in dihedral angle table parameters ({})", word);
+      else error->one(FLERR,"Invalid keyword in dihedral angle "
+                                        "table parameters ({})", word);
     }
   } catch (TokenizerException &e) {
     error->one(FLERR, e.what());

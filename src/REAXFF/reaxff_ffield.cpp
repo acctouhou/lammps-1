@@ -583,7 +583,6 @@ namespace ReaxFF {
       } catch (std::exception &e) {
         error->one(FLERR,e.what());
       }
-      fclose(fp);
     }
 
     // broadcast global parameters and allocate list on ranks != 0

@@ -51,11 +51,7 @@ using namespace LAMMPS_NS;
 /* ---------------------------------------------------------------------- */
 
 DumpCFGMPIIO::DumpCFGMPIIO(LAMMPS *lmp, int narg, char **arg) :
-  DumpCFG(lmp, narg, arg)
-{
-  if (me == 0)
-    error->warning(FLERR,"MPI-IO output is unmaintained and unreliable. Use with caution.");
-}
+  DumpCFG(lmp, narg, arg) {}
 
 /* ---------------------------------------------------------------------- */
 
